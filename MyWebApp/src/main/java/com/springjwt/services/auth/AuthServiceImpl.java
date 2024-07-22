@@ -2,8 +2,12 @@ package com.springjwt.services.auth;
 
 import com.springjwt.dto.SignupDTO;
 import com.springjwt.dto.UserDTO;
+import com.springjwt.entities.Matrix;
 import com.springjwt.entities.User;
+import com.springjwt.repositories.MatrixRepository;
 import com.springjwt.repositories.UserRepository;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +17,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MatrixRepository matrixRepository;
 
     @Override
     public UserDTO createUser(SignupDTO signupDTO) {
@@ -25,6 +32,21 @@ public class AuthServiceImpl implements AuthService {
         userDTO.setId(createdUser.getId());
         userDTO.setEmail(createdUser.getEmail());
         userDTO.setName(createdUser.getName());
+        //------------------------------------------
+        Matrix initialmatrix = new Matrix();
+        initialmatrix.setData(new String[][]{{"null","null"}});
+        initialmatrix.setUser_id(createdUser.getId().intValue());
+        matrixRepository.save(initialmatrix);
+        //--------------------------------
         return userDTO;
     }
+
+    // public Matrix createMatrix(Matrix matrix) {
+    //     return matrixRepository.save(matrix);
+    // }
+
+    // // public List<Matrix> getMatricesForUser(Long userId) {
+    // //     User user = userRepository.findById(userId).orElseThrow();
+    // //     return user.getMatrices();
+    // // }
 }

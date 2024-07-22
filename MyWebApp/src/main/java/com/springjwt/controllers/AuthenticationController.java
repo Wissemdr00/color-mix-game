@@ -36,21 +36,17 @@ public class AuthenticationController {
     public AuthenticationResponse createAuthenticationToken(@RequestBody AuthenticationDTO authenticationDTO, HttpServletResponse response) throws BadCredentialsException, DisabledException, UsernameNotFoundException, IOException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDTO.getEmail(), authenticationDTO.getPassword()));
-            System.out.println("ooooooooooooooooooooooooo");
         } catch (BadCredentialsException e) {
-            System.err.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
             throw new BadCredentialsException("Incorrect username or password!");
         } catch (DisabledException disabledException) {
-            System.err.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "User is not activated");
             return null;
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDTO.getEmail());
-
+        System.err.println(userDetails);
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
         System.out.println(jwt);
-
         return new AuthenticationResponse(jwt);
 
     }

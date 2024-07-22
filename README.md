@@ -29,14 +29,6 @@ Before running the project, ensure you have the following prerequisites:
 - Node.js and npm (Node Package Manager)
 - Angular CLI (Command Line Interface)
 
-## Setup Instructions
-
-1. **Clone the repository:** Start by cloning this repository to your local machine using Git.
-
-```bash
-git clone https://github.com/your-username/spring-boot-angular-auth.git
-cd spring-boot-angular-auth
-```
 
 2. **Backend Setup:**
    
