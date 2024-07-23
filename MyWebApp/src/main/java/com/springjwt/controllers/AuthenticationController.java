@@ -2,6 +2,8 @@ package com.springjwt.controllers;
 
 import com.springjwt.dto.AuthenticationDTO;
 import com.springjwt.dto.AuthenticationResponse;
+import com.springjwt.entities.User;
+import com.springjwt.repositories.UserRepository;
 import com.springjwt.services.jwt.UserDetailsServiceImpl;
 import com.springjwt.util.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +24,8 @@ import java.io.IOException;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationController {
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -46,8 +50,8 @@ public class AuthenticationController {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDTO.getEmail());
         System.err.println(userDetails);
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-        System.out.println(jwt);
-        return new AuthenticationResponse(jwt);
+        User user = userRepository.findFirstByEmail(authenticationDTO.getEmail());
+        return new AuthenticationResponse(jwt,user);
 
     }
 

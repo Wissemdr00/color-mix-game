@@ -34,19 +34,15 @@ public class AuthServiceImpl implements AuthService {
         userDTO.setName(createdUser.getName());
         //------------------------------------------
         Matrix initialmatrix = new Matrix();
-        initialmatrix.setData(new String[][]{{"null","null"}});
-        initialmatrix.setUser_id(createdUser.getId().intValue());
+        
+        initialmatrix.setData(new String[][]{{"white"}});
+        System.err.println(initialmatrix.getData());
+        initialmatrix.setUserid(createdUser.getId().intValue());
+        
         matrixRepository.save(initialmatrix);
+        
         //--------------------------------
         return userDTO;
     }
 
-    // public Matrix createMatrix(Matrix matrix) {
-    //     return matrixRepository.save(matrix);
-    // }
-
-    // // public List<Matrix> getMatricesForUser(Long userId) {
-    // //     User user = userRepository.findById(userId).orElseThrow();
-    // //     return user.getMatrices();
-    // // }
 }

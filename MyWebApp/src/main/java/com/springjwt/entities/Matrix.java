@@ -54,14 +54,14 @@ public class Matrix {
     }
 
 
-    private Integer user_id;
+    private Integer userid;
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserid(Integer user_id) {
+        this.userid = user_id;
     }
 
     
